@@ -14,11 +14,14 @@ public class TestConnection {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM regions");
 
+        //once you set up connection default pointer looks for 0
         //next()--->move pointer to first row
         resultSet.next();
 
         //getting information with column name
         System.out.println(resultSet.getString("region_name"));
+        //getting information with column index(starts from 1)
+        System.out.println(resultSet.getString(2));
 
 
         // Close connections
