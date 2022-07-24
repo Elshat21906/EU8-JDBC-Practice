@@ -18,8 +18,7 @@ public class TestConnection {
         resultSet.next();
 
         //getting information with column name
-        resultSet.getString("region_name");
-
+        System.out.println(resultSet.getString("region_name"));
 
 
         // Close connections
