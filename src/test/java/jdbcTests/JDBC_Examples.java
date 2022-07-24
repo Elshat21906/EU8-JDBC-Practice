@@ -37,13 +37,36 @@ public class JDBC_Examples {
         while(resultSet.next()){
             System.out.println(resultSet.getInt(1) + "-" + resultSet.getString(2));
         }
-
-
-
         // Close connections
         resultSet.close();
         statement.close();
         connection.close();
+
+    }
+
+    @Test
+    public void test2() throws SQLException {
+        Connection connection = DriverManager.getConnection(dbUrl,dbUsername,dbPassword);
+        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM departments");
+
+        // How to find how many rows we have for the query
+        // move to last row first
+        resultSet.last();
+
+        // get the row count
+        int rowCount = resultSet.getRow();
+
+        System.out.println("rowCount = " + rowCount);
+
+        // to move before first row after we use . last method
+        resultSet.beforeFirst();
+
+        // print all second column
+        while(resultSet.next()){
+            System.out.println(resultSet.getString(2));
+        }
+
 
     }
 
