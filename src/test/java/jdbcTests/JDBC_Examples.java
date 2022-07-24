@@ -80,7 +80,7 @@ public class JDBC_Examples {
     public void test3() throws SQLException {
         Connection connection = DriverManager.getConnection(dbUrl,dbUsername,dbPassword);
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM departments");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM employees");
 
         // get the database related data inside the dbMetadata object
         DatabaseMetaData dbMetadata = connection.getMetaData();
@@ -90,6 +90,29 @@ public class JDBC_Examples {
         System.out.println("dbMetadata.getDatabaseProductVersion() = " + dbMetadata.getDatabaseProductVersion());
         System.out.println("dbMetadata.getDriverName() = " + dbMetadata.getDriverName());
         System.out.println("dbMetadata.getDriverVersion() = " + dbMetadata.getDriverVersion());
+
+        // get the resulsetmetadata // rsmd
+
+        ResultSetMetaData rsMetadata = resultSet.getMetaData();
+
+        // how many columns we have ?
+        int colCount = rsMetadata.getColumnCount();
+        System.out.println(colCount);
+
+        // getting column name
+        System.out.println(rsMetadata.getColumnName(1));
+        System.out.println(rsMetadata.getColumnName(2));
+        System.out.println(rsMetadata.getColumnName(3));
+        System.out.println(rsMetadata.getColumnName(4));
+
+        System.out.println("-------------------------------------------------------------------");
+
+        // rsMetadata.getColumnName(i) ---> get column name
+        // rsMetadata.getColumnCount() ---> total number of columns
+        // print all column names dynamically
+        for (int i = 1; i <= colCount ; i++) {
+            System.out.println(rsMetadata.getColumnName(i));
+        }
 
 
         // Close connections
