@@ -1,5 +1,6 @@
 package jdbcTests;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
@@ -10,6 +11,7 @@ public class JDBC_Examples {
     String dbUsername = "hr";
     String dbPassword = "hr";
 
+    @DisplayName("ResultSet Methods")
     @Test
     public void test1() throws SQLException {
 
@@ -67,6 +69,33 @@ public class JDBC_Examples {
             System.out.println(resultSet.getString(2));
         }
 
+
+        // Close connections
+        resultSet.close();
+        statement.close();
+        connection.close();
+    }
+
+    @Test
+    public void test3() throws SQLException {
+        Connection connection = DriverManager.getConnection(dbUrl,dbUsername,dbPassword);
+        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM departments");
+
+        // get the database related data inside the dbMetadata object
+        DatabaseMetaData dbMetadata = connection.getMetaData();
+
+        System.out.println("dbMetadata.getUserName() = " + dbMetadata.getUserName());
+        System.out.println("dbMetadata.getDatabaseProductName() = " + dbMetadata.getDatabaseProductName());
+        System.out.println("dbMetadata.getDatabaseProductVersion() = " + dbMetadata.getDatabaseProductVersion());
+        System.out.println("dbMetadata.getDriverName() = " + dbMetadata.getDriverName());
+        System.out.println("dbMetadata.getDriverVersion() = " + dbMetadata.getDriverVersion());
+
+
+        // Close connections
+        resultSet.close();
+        statement.close();
+        connection.close();
 
     }
 
