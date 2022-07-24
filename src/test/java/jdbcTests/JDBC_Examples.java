@@ -31,6 +31,14 @@ public class JDBC_Examples {
             System.out.println(resultSet.getInt(1) + "-" + resultSet.getString(2)
             + "-" + resultSet.getInt(3) + "-" + resultSet.getInt(4));
         }
+        System.out.println("----------------------------------------------------------------------");
+
+        resultSet = statement.executeQuery("select * from regions ");
+        while(resultSet.next()){
+            System.out.println(resultSet.getInt(1) + "-" + resultSet.getString(2));
+        }
+
+
 
         // Close connections
         resultSet.close();
