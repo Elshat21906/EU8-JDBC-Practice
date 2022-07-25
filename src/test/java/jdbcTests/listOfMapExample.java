@@ -2,6 +2,7 @@ package jdbcTests;
 
 import org.junit.jupiter.api.Test;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +45,55 @@ public class listOfMapExample {
         // get the Steven last name directly from the list
         System.out.println(queryData.get(0).get("last_name"));
 
+
+    }
+
+    @Test
+    public void test2() throws SQLException {
+
+        Connection connection = DriverManager.getConnection(dbUrl,dbUsername,dbPassword);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select first_name,last_name,salary,job_id\n" +
+                "from employees\n" +
+                "where rownum < 6");
+
+        // in order to get column names we need resultSetMetadata
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+
+        // creating list for keeping all the rows map
+        List<Map<String,Object>> queryData = new ArrayList<>();
+
+        // move to first row
+        resultSet.next();
+
+        Map<String,Object> row1 = new HashMap<>();
+        row1.put(rsmd.getColumnName(1),resultSet.getString(1));
+        row1.put(rsmd.getColumnName(2),resultSet.getString(2));
+        row1.put(rsmd.getColumnName(3),resultSet.getString(3));
+        row1.put(rsmd.getColumnName(4),resultSet.getString(4));
+
+        System.out.println(row1.toString());
+
+        resultSet.next();
+
+        Map<String,Object> row2 = new HashMap<>();
+        row2.put(rsmd.getColumnName(1),resultSet.getString(1));
+        row2.put(rsmd.getColumnName(2),resultSet.getString(2));
+        row2.put(rsmd.getColumnName(3),resultSet.getString(3));
+        row2.put(rsmd.getColumnName(4),resultSet.getString(4));
+
+        System.out.println(row2.toString());
+
+        System.out.println("----------------------------------------------------------------------");
+
+        // adding rows one by one to my list
+        queryData.add(row1);
+        queryData.add(row2);
+
+        // Close connections
+        resultSet.close();
+        statement.close();
+        connection.close();
     }
 
 }
