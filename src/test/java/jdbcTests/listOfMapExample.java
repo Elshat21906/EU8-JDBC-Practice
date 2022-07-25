@@ -35,12 +35,14 @@ public class listOfMapExample {
 
         System.out.println(row2.toString());
 
+        System.out.println("----------------------------------------------------------------------");
+
         // adding rows one by one to my list
         queryData.add(row1);
         queryData.add(row2);
 
         // get the Steven last name directly from the list
-
+        System.out.println(queryData.get(0).get("last_name"));
 
     }
 
