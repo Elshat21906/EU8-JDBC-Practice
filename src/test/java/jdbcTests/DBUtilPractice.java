@@ -24,9 +24,11 @@ public class DBUtilPractice {
 
             System.out.println(row.toString());
 
-        }
+        } 
 
+        DBUtils.destroy();
     }
+
 
 
 }
